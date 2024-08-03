@@ -38,8 +38,8 @@ const Register = () => {
   };
 
   return (
-    <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-      <div className="container h-100">
+    <section className="vh-100">
+      <div className="container h-100 ">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
             <div className="card text-black" style={{ borderRadius: "25px" }}>
@@ -59,12 +59,13 @@ const Register = () => {
                             className="form-control"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            placeholder="Billy Bob Joe"
                           />
                           <label
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Your Name
+                            Your Full Name
                           </label>
                           {errors.name && (
                             <div className="text-danger">{errors.name}</div>
@@ -80,6 +81,7 @@ const Register = () => {
                             className="form-control"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder="test@test.com"
                           />
                           <label
                             className="form-label"
@@ -101,6 +103,7 @@ const Register = () => {
                             className="form-control"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder="********"
                           />
                           <label
                             className="form-label"

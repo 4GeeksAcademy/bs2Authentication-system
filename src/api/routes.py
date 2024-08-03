@@ -16,7 +16,7 @@ CORS(api)
 def handle_hello():
 
     response_body = {
-        "message": "Lets get started!"
+        "message": "Login or register below to get started!"
     }
 
     return jsonify(response_body), 200

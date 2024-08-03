@@ -62,7 +62,7 @@ const Login = () => {
 
       <button
         type="submit"
-        className="btn btn-primary btn-block mb-4"
+        className="btn btn-primary btn-block mb-4 col-10"
       >
         Sign in
       </button>
