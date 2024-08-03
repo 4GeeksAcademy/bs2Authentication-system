@@ -3,16 +3,11 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
 	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
+		<nav className="navbar navbar-light bg-dark">
+			<div className="container-fluid justify-content-center">
+				<Link className="text-decoration-none" to="/">
+					<span className="navbar-brand mb-0 h1 text-light">Authenticator App</span>
 				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
 			</div>
 		</nav>
 	);
