@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../store/appContext';
 
 const Login = () => {
+  const { store, actions } = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -9,10 +11,31 @@ const Login = () => {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    console.log({ email, password, rememberMe });
+  const handleSubmit = (event) => {
+    event.preventDefault();  // Prevent default form submission
+
+    const opts = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"  // Corrected the typo
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    };
+
+    fetch('https://cautious-engine-pjgjp99w754g377j-3001.app.github.dev/api/token', opts)
+      .then(resp => {
+        if(resp.status === 200) return resp.json();
+        else alert("There has been some error");
+      })
+      .then(data => {
+        console.log(data);  // Handle the response data
+      })
+      .catch(error => {
+          console.error("There was an error!", error);
+      });
   };
 
   return (
