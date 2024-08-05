@@ -1,53 +1,38 @@
-import React, { useState, useContext } from 'react';
-import { Context } from '../store/appContext';
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();  // Prevent default form submission
-
-    const opts = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"  // Corrected the typo
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    };
-
-    fetch('https://cautious-engine-pjgjp99w754g377j-3001.app.github.dev/api/token', opts)
-      .then(resp => {
-        if(resp.status === 200) return resp.json();
-        else alert("There has been some error");
-      })
-      .then(data => {
-        console.log(data);  // Handle the response data
-      })
-      .catch(error => {
-          console.error("There was an error!", error);
-      });
+  const token = sessionStorage.getItem("token");
+  console.log("This is your token", token);
+  const handleSubmit = () => {
+    // Prevent default form submission
+    actions.login(email, password);
+    /* actions.getPrivate(sessionStorage.getItem("token"));
+    navigate("/private");
+    console.log("here"); */
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={() => handleSubmit()}>
       <div data-mdb-input-init className="form-outline mb-4">
         <input
           type="email"
           id="form2Example1"
           className="form-control"
           value={email}
-          onChange={handleEmailChange}
-          placeholder='Email address'
+          onChange={(e) => handleEmailChange(e)}
+          placeholder="Email address"
         />
       </div>
 
@@ -57,8 +42,8 @@ const Login = () => {
           id="form2Example2"
           className="form-control"
           value={password}
-          onChange={handlePasswordChange}
-          placeholder='Password'
+          onChange={(e) => handlePasswordChange(e)}
+          placeholder="Password"
         />
       </div>
 
@@ -70,7 +55,7 @@ const Login = () => {
               type="checkbox"
               id="form2Example31"
               checked={rememberMe}
-              onChange={handleRememberMeChange}
+              onChange={(e) => handleRememberMeChange(e)}
             />
             <label className="form-check-label" htmlFor="form2Example31">
               Remember me
@@ -83,10 +68,7 @@ const Login = () => {
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="btn btn-primary btn-block mb-4 col-10"
-      >
+      <button type="submit" className="btn btn-primary btn-block mb-4 col-10">
         Sign in
       </button>
 

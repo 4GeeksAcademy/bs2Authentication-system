@@ -39,4 +39,10 @@ def create_token():
         return jsonify({"msg": "Bad email or password"}), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token);
+
+@api.route("/private", methods =["GET"])
+@jwt_required()
+def handle_login():
+    current_user = "test user"
+    return jsonify(logged_in_as=current_user), 200
