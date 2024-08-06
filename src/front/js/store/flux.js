@@ -89,12 +89,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             alert("There has been some error");
             return false;
           }
-
+          else{
           const data = await resp.json();
           console.log("From the backend)", data);
           sessionStorage.setItem("token", data.access_token);
           setStore({ token: data.access_token });
-          return true; // Handle the response data
+          return true;}// Handle the response data
         } catch (error) {
           console.error("There was an error!", error);
         }

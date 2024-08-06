@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -7,24 +7,33 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [token, setToken] = useState(null);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
   const navigate = useNavigate();
 
-  const token = sessionStorage.getItem("token");
+  useEffect(() => {
+    setToken(sessionStorage.getItem("token"));
+  }, []);
+
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/private");
+    }
+  }, [token]);
+
   console.log("This is your token", store.token);
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     actions.login(email, password);
-    navigate("/private");
+    if (store.token != null) navigate("/private");
     console.log("here");
   };
 
-  if (store.token && store.token !== "" && store.token != undefined) navigate("/private")
-  
-    return (
-    <form onSubmit={() => handleSubmit()}>
+  return (
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div data-mdb-input-init className="form-outline mb-4">
         <input
           type="email"
