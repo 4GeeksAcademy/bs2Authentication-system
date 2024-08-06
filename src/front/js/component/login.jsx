@@ -17,9 +17,8 @@ const Login = () => {
   console.log("This is your token", store.token);
   const handleSubmit = () => {
     actions.login(email, password);
-    /* actions.getPrivate(token);
     navigate("/private");
-    console.log("here"); */
+    console.log("here");
   };
 
   if (store.token && store.token !== "" && store.token != undefined) navigate("/private")

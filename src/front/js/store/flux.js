@@ -68,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
+      
       login: async (email, password) => {
         try {
           const opts = {
@@ -109,6 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         sessionStorage.removeItem("token");
         console.log("Logging out")
         setStore({ token: null });
+        
     },
     },
   };

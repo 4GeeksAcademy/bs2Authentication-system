@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Private = () => {
   const { store, actions } = useContext(Context);
+  if (store.token == "" && store.token == undefined)
+    useNavigate("/")
   //const sessionData = () => actions.getPrivate(sessionStorage.getItem("token"));
 
   return (
