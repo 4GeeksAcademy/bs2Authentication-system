@@ -14,16 +14,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const token = sessionStorage.getItem("token");
-  console.log("This is your token", token);
+  console.log("This is your token", store.token);
   const handleSubmit = () => {
-    // Prevent default form submission
     actions.login(email, password);
-    /* actions.getPrivate(sessionStorage.getItem("token"));
+    /* actions.getPrivate(token);
     navigate("/private");
     console.log("here"); */
   };
 
-  return (
+  if (store.token && store.token !== "" && store.token != undefined) navigate("/private")
+  
+    return (
     <form onSubmit={() => handleSubmit()}>
       <div data-mdb-input-init className="form-outline mb-4">
         <input

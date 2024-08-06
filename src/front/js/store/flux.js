@@ -98,6 +98,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There was an error!", error);
         }
       },
+
+      syncTokenFromSessionStore: () => {
+          const token  = sessionStorage.getItem("token");
+          console.log("Application just loaded, syncing session storage token")
+          if(token && token !="" && token != undefined) setStore({ token: token });
+      },
+
+      logout: () => {
+        sessionStorage.removeItem("token");
+        console.log("Logging out")
+        setStore({ token: null });
+    },
     },
   };
 };
